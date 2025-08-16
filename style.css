@@ -1,0 +1,146 @@
+/* ========== Base Reset ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(to right, #eceff1, #f5f5f5);
+  padding: 20px;
+  color: #333;
+}
+
+/* ========== Container ========== */
+.container {
+  max-width: 860px;
+  margin: auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.6s ease;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2e7d32;
+}
+
+/* ========== Form Styling ========== */
+form {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+input, select {
+  padding: 12px;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #81c784;
+  background-color: #ffffff;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+/* ========== Primary Button ========== */
+button.primary {
+  background-color: #4caf50;
+  color: white;
+}
+
+button.primary:hover {
+  background-color: #388e3c;
+  transform: scale(1.03);
+}
+
+/* ========== Table Styling ========== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #2e7d32;
+  color: white;
+}
+
+th, td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:hover {
+  background-color: #f1f8e9;
+  transition: background 0.3s ease;
+}
+
+/* ========== Actions Column ========== */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fade animation for rows */
+.fade-row {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== PDF-specific styles ===== */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  form, #chartWrapper, #downloadPDF {
+    display: none !important;
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trade Journal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- PDF Content -->
+    <div id="pdfContent">
+      <h1>Asanda Mkhize Trade Journal</h1>
+      <table id="tradeTable">
+        <thead>
+          <tr>
+            <th>Currency Pair</th>
+            <th>Date & Time</th>
+            <th>Reason</th>
+            <th>Emotion</th>
+            <th>Lot Size</th>
+            <th>Result</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Form for adding trades -->
+    <form id="tradeForm">
+      <input type="text" id="currencyPair" placeholder="Currency Pair (e.g. EUR/USD)" required />
+      <input type="datetime-local" id="dateTime" required />
+      <input type="text" id="reason" placeholder="Reason for Entry" required />
+      <select id="emotion" required>
+        <option value="" disabled selected>Emotion</option>
+        <option value="😎 Calm">😎 Calm</option>
+        <option value="😬 Nervous">😬 Nervous</option>
+        <option value="😡 Frustrated">😡 Frustrated</option>
+        <option value="😅 Overtrading">😅 Overtrading</option>
+        <option value="🧘 Focused">🧘 Focused</option>
+      </select>
+      <input type="number" id="lotSize" step="0.01" min="0" placeholder="Lot Size" required />
+      <button type="submit" class="primary">Add Trade</button>
+    </form>
+
+    <!-- Chart (excluded from PDF) -->
+    <div id="chartWrapper">
+      <canvas id="tradeChart" height="100"></canvas>
+    </div>
+  </div>
+
+  <button id="downloadPDF">📄 Download Page as PDF</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
