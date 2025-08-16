@@ -1,0 +1,15 @@
+{
+  "name": "trade-journal",
+  "version": "1.0.0",
+  "description": "A sleek trade journal application",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=/index.html"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "keywords": ["trading", "journal", "forex"],
+  "author": "",
+  "license": "MIT"
+}
