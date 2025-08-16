@@ -11,36 +11,48 @@
     <!-- PDF Content -->
     <div id="pdfContent">
       <h1>Asanda Mkhize Trade Journal</h1>
-      <table id="tradeTable">
-        <thead>
-          <tr>
-            <th>Currency Pair</th>
-            <th>Date & Time</th>
-            <th>Reason</th>
-            <th>Emotion</th>
-            <th>Lot Size</th>
-            <th>Result</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="table-container">
+        <table id="tradeTable">
+          <thead>
+            <tr>
+              <th>Currency Pair</th>
+              <th>Date & Time</th>
+              <th>Reason</th>
+              <th>Emotion</th>
+              <th>Lot Size</th>
+              <th>Result</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Form for adding trades -->
     <form id="tradeForm">
-      <input type="text" id="currencyPair" placeholder="Currency Pair (e.g. EUR/USD)" required />
-      <input type="datetime-local" id="dateTime" required />
-      <input type="text" id="reason" placeholder="Reason for Entry" required />
-      <select id="emotion" required>
-        <option value="" disabled selected>Emotion</option>
-        <option value="😎 Calm">😎 Calm</option>
-        <option value="😬 Nervous">😬 Nervous</option>
-        <option value="😡 Frustrated">😡 Frustrated</option>
-        <option value="😅 Overtrading">😅 Overtrading</option>
-        <option value="🧘 Focused">🧘 Focused</option>
-      </select>
-      <input type="number" id="lotSize" step="0.01" min="0" placeholder="Lot Size" required />
+      <div class="input-group">
+        <input type="text" id="currencyPair" placeholder="Currency Pair (e.g. EUR/USD)" required />
+      </div>
+      <div class="input-group">
+        <input type="datetime-local" id="dateTime" required />
+      </div>
+      <div class="input-group">
+        <input type="text" id="reason" placeholder="Reason for Entry" required />
+      </div>
+      <div class="input-group">
+        <select id="emotion" required>
+          <option value="" disabled selected>Select Emotion</option>
+          <option value="😎 Calm">😎 Calm</option>
+          <option value="😬 Nervous">😬 Nervous</option>
+          <option value="😡 Frustrated">😡 Frustrated</option>
+          <option value="😅 Overtrading">😅 Overtrading</option>
+          <option value="🧘 Focused">🧘 Focused</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input type="number" id="lotSize" step="0.01" min="0" placeholder="Lot Size" required />
+      </div>
       <button type="submit" class="primary">Add Trade</button>
     </form>
 

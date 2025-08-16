@@ -41,45 +41,105 @@ function addTradeRow(trade) {
     <td>${trade.reason}</td>
     <td>${trade.emotion}</td>
     <td>${trade.lotSize}</td>
-    <td class="result">${trade.result}</td>
+    <td><span class="result">${trade.result}</span></td>
     <td class="actions"></td>
   `;
 
-  const resultCell = row.querySelector(".result");
+  const resultSpan = row.querySelector(".result");
   const actionsCell = row.querySelector(".actions");
+
+  // Add visual styling based on result
+  updateResultStyling(resultSpan, trade.result);
 
   const resultBtn = document.createElement("button");
   resultBtn.textContent = trade.result === "Pending" ? "Add Result" : "Completed";
   resultBtn.disabled = trade.result !== "Pending";
-
+  
+  // Add loading state on click
   resultBtn.addEventListener("click", () => {
-    const input = prompt("Enter result: profit, loss, or breakeven")?.toLowerCase().trim();
-    const mapResult = { profit: "✅ Profit", loss: "❌ Loss", breakeven: "⚖️ Breakeven" };
+    resultBtn.classList.add("loading");
+    resultBtn.textContent = "Processing...";
+    
+    setTimeout(() => {
+      const input = prompt("Enter result: profit, loss, or breakeven")?.toLowerCase().trim();
+      const mapResult = { profit: "✅ Profit", loss: "❌ Loss", breakeven: "⚖️ Breakeven" };
 
-    if (input && mapResult[input]) {
-      resultCell.textContent = mapResult[input];
-      resultBtn.textContent = "Completed";
-      resultBtn.disabled = true;
-      updateResultInStorage(trade.id, mapResult[input]);
-      renderTradeChart();
-    } else if (input !== null) {
-      alert("Invalid input. Please type profit, loss, or breakeven.");
-    }
+      if (input && mapResult[input]) {
+        resultSpan.textContent = mapResult[input];
+        updateResultStyling(resultSpan, mapResult[input]);
+        resultBtn.textContent = "Completed";
+        resultBtn.disabled = true;
+        updateResultInStorage(trade.id, mapResult[input]);
+        renderTradeChart();
+        
+        // Add success animation
+        row.style.animation = "none";
+        row.offsetHeight; // Trigger reflow
+        row.style.animation = "fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+      } else if (input !== null) {
+        alert("Invalid input. Please type profit, loss, or breakeven.");
+      }
+      
+      resultBtn.classList.remove("loading");
+      if (trade.result === "Pending") {
+        resultBtn.textContent = "Add Result";
+      }
+    }, 500);
   });
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.addEventListener("click", () => {
     if (confirm("Delete this trade?")) {
-      row.remove();
-      deleteTradeFromStorage(trade.id);
-      renderTradeChart();
+      // Add fade out animation before removing
+      row.style.animation = "fadeOut 0.3s ease-out forwards";
+      setTimeout(() => {
+        row.remove();
+        deleteTradeFromStorage(trade.id);
+        renderTradeChart();
+      }, 300);
     }
   });
 
   actionsCell.appendChild(resultBtn);
   actionsCell.appendChild(deleteBtn);
 }
+
+// Add result styling function
+function updateResultStyling(element, result) {
+  // Remove existing classes
+  element.className = "result";
+  
+  if (result.includes("Profit")) {
+    element.style.background = "linear-gradient(135deg, #48bb78, #38a169)";
+    element.style.color = "white";
+  } else if (result.includes("Loss")) {
+    element.style.background = "linear-gradient(135deg, #f56565, #e53e3e)";
+    element.style.color = "white";
+  } else if (result.includes("Breakeven")) {
+    element.style.background = "linear-gradient(135deg, #ed8936, #dd6b20)";
+    element.style.color = "white";
+  } else {
+    element.style.background = "linear-gradient(135deg, #e2e8f0, #cbd5e0)";
+    element.style.color = "#4a5568";
+  }
+}
+
+// Add CSS for fade out animation
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+  }
+`;
+document.head.appendChild(style);
 
 // LocalStorage functions
 function getTradesFromStorage() {
@@ -101,6 +161,12 @@ function deleteTradeFromStorage(id) {
 
 // Download PDF
 document.getElementById("downloadPDF").addEventListener("click", () => {
+  const button = document.getElementById("downloadPDF");
+  const originalText = button.textContent;
+  
+  button.textContent = "📄 Generating PDF...";
+  button.disabled = true;
+  
   const element = document.getElementById("pdfContent");
 
   html2pdf().set({
@@ -109,7 +175,10 @@ document.getElementById("downloadPDF").addEventListener("click", () => {
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
-  }).from(element).save();
+  }).from(element).save().then(() => {
+    button.textContent = originalText;
+    button.disabled = false;
+  });
 });
 
 // Chart.js line chart
@@ -136,17 +205,49 @@ function renderTradeChart() {
         label: "Trade Results",
         data: [summary.Profit, summary.Loss, summary.Breakeven],
         fill: false,
-        tension: 0.3,
+        tension: 0.4,
         pointRadius: 6,
-        pointBackgroundColor: ["#4caf50", "#f44336", "#ffc107"],
-        borderColor: "#4f7942",
+        pointHoverRadius: 8,
+        pointBackgroundColor: ["#48bb78", "#f56565", "#ed8936"],
+        pointBorderColor: "#ffffff",
+        pointBorderWidth: 2,
+        borderColor: "#4299e1",
         borderWidth: 3
       }]
     },
     options: {
       responsive: true,
-      plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      plugins: { 
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(45, 55, 72, 0.9)',
+          titleColor: '#ffffff',
+          bodyColor: '#ffffff',
+          borderColor: '#4299e1',
+          borderWidth: 1,
+          cornerRadius: 8
+        }
+      },
+      scales: { 
+        y: { 
+          beginAtZero: true, 
+          ticks: { 
+            stepSize: 1,
+            color: '#718096'
+          },
+          grid: {
+            color: 'rgba(113, 128, 150, 0.1)'
+          }
+        },
+        x: {
+          ticks: {
+            color: '#718096'
+          },
+          grid: {
+            color: 'rgba(113, 128, 150, 0.1)'
+          }
+        }
+      }
     }
   });
 }
