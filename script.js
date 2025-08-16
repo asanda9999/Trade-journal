@@ -42,7 +42,7 @@ function addTradeRow(trade) {
     <td>${trade.emotion}</td>
     <td>${trade.lotSize}</td>
     <td><span class="result">${trade.result}</span></td>
-    <td class="actions no-print"></td>
+    <td class="actions action-column"></td>
   `;
 
   const resultSpan = row.querySelector(".result");

@@ -424,12 +424,12 @@ tbody tr:hover td {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-size: 11px !important;
+    font-size: 12px !important;
   }
 
   th, td {
     border: 1px solid #e2e8f0 !important;
-    padding: 12px 8px !important;
+    padding: 14px 10px !important;
     text-align: left !important;
     vertical-align: middle !important;
   }
@@ -441,7 +441,7 @@ tbody tr:hover td {
 
   th {
     font-weight: 600 !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
     color: #4a5568 !important;
@@ -449,7 +449,7 @@ tbody tr:hover td {
   }
 
   td {
-    font-size: 11px !important;
+    font-size: 12px !important;
     color: #2d3748 !important;
     line-height: 1.4 !important;
   }
@@ -462,43 +462,49 @@ tbody tr:hover td {
     background: #ffffff !important;
   }
 
-  /* Hide action column in PDF */
-  th:last-child,
-  td:last-child {
+  /* Hide action column and elements in PDF */
+  .action-column,
+  .actions,
+  form,
+  #chartWrapper,
+  #downloadPDF {
     display: none !important;
   }
 
   /* Style result column for PDF */
   .result {
-    padding: 4px 8px !important;
-    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
     font-weight: 600 !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     display: inline-block !important;
-    min-width: 60px !important;
+    min-width: 80px !important;
     text-align: center !important;
   }
 
-  /* Result colors for PDF */
-  .result[style*="48bb78"] {
+  /* Profit styling for PDF */
+  .result:contains("Profit") {
     background: #c6f6d5 !important;
     color: #22543d !important;
     border: 1px solid #9ae6b4 !important;
   }
 
-  .result[style*="f56565"] {
+  /* Loss styling for PDF */
+  .result:contains("Loss") {
     background: #fed7d7 !important;
     color: #742a2a !important;
     border: 1px solid #fc8181 !important;
   }
 
-  .result[style*="ed8936"] {
+  /* Breakeven styling for PDF */
+  .result:contains("Breakeven") {
     background: #feebc8 !important;
     color: #7b341e !important;
     border: 1px solid #f6ad55 !important;
   }
 
-  .result[style*="e2e8f0"] {
+  /* Pending styling for PDF */
+  .result:contains("Pending") {
     background: #f7fafc !important;
     color: #4a5568 !important;
     border: 1px solid #cbd5e0 !important;
@@ -511,7 +517,7 @@ tbody tr:hover td {
 
   /* Add footer with page info */
   @page {
-    margin: 0.75in;
+    margin: 0.5in;
     @bottom-center {
       content: "Page " counter(page) " of " counter(pages);
       font-size: 10px;
@@ -519,9 +525,6 @@ tbody tr:hover td {
     }
   }
 
-  form, #chartWrapper, #downloadPDF {
-    display: none !important;
-  }
 }
 
 /* ========== Custom Scrollbar ========== */
