@@ -86,6 +86,72 @@ function addTradeRow(trade) {
       }
     }, 500);
   });
+  // Create dropdown for result selection
+  if (trade.result === "Pending") {
+    const dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "result-dropdown";
+    
+    const dropdown = document.createElement("select");
+    dropdown.innerHTML = `
+      <option value="" disabled selected>Select Result</option>
+      <option value="profit">✅ Profit</option>
+      <option value="loss">❌ Loss</option>
+      <option value="breakeven">⚖️ Breakeven</option>
+    `;
+    
+    dropdown.addEventListener("change", (e) => {
+      const selectedValue = e.target.value;
+      const mapResult = { 
+        profit: "✅ Profit", 
+        loss: "❌ Loss", 
+        breakeven: "⚖️ Breakeven" 
+      };
+      
+      if (mapResult[selectedValue]) {
+        // Add smooth transition effect
+        resultSpan.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
+        resultSpan.style.transform = "scale(0.95)";
+        
+        setTimeout(() => {
+          resultSpan.textContent = mapResult[selectedValue];
+          updateResultStyling(resultSpan, mapResult[selectedValue]);
+          resultSpan.style.transform = "scale(1)";
+          
+          // Mark dropdown as completed
+          dropdownContainer.classList.add("completed");
+          dropdown.disabled = true;
+          
+          updateResultInStorage(trade.id, mapResult[selectedValue]);
+          renderTradeChart();
+          
+          // Add success animation to the row
+          row.style.animation = "none";
+          row.offsetHeight; // Trigger reflow
+          row.style.animation = "fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
+        }, 150);
+      }
+    });
+    
+    dropdownContainer.appendChild(dropdown);
+    actionsCell.appendChild(dropdownContainer);
+  } else {
+    // For completed trades, show a disabled dropdown with the current result
+    const dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "result-dropdown completed";
+    
+    const dropdown = document.createElement("select");
+    dropdown.disabled = true;
+    
+    const resultValue = trade.result.includes("Profit") ? "profit" : 
+                       trade.result.includes("Loss") ? "loss" : "breakeven";
+    
+    dropdown.innerHTML = `
+      <option value="${resultValue}" selected>${trade.result}</option>
+    `;
+    
+    dropdownContainer.appendChild(dropdown);
+    actionsCell.appendChild(dropdownContainer);
+  }
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
@@ -101,7 +167,6 @@ function addTradeRow(trade) {
     }
   });
 
-  actionsCell.appendChild(resultBtn);
   actionsCell.appendChild(deleteBtn);
 }
 
