@@ -503,6 +503,18 @@ tbody tr:hover td {
     display: none !important;
   }
 
+  /* Additional selectors to ensure Action column is hidden */
+  th:last-child,
+  td:last-child {
+    display: none !important;
+  }
+
+  /* Hide any elements with action-related classes */
+  .result-dropdown,
+  button {
+    display: none !important;
+  }
+
   .result {
     padding: 3px 6px !important;
     border-radius: 3px !important;
