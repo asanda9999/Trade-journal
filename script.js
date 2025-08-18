@@ -232,13 +232,23 @@ document.getElementById("downloadPDF").addEventListener("click", () => {
   button.textContent = "📄 Generating PDF...";
   button.disabled = true;
   
+  // Add metadata to container for PDF
+  const container = document.getElementById("pdfContent");
+  const trades = getTradesFromStorage();
+  container.setAttribute('data-date', new Date().toLocaleDateString());
+  container.setAttribute('data-total-trades', trades.length);
+  
   const element = document.getElementById("pdfContent");
 
   html2pdf().set({
-    margin: 0.2,
+    margin: [0.75, 0.5, 0.75, 0.5],
     filename: `fx_trades_${new Date().toISOString().slice(0,10)}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
+    html2canvas: { 
+      scale: 2,
+      useCORS: true,
+      letterRendering: true
+    },
     jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
   }).from(element).save().then(() => {
     button.textContent = originalText;

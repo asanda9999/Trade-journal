@@ -390,76 +390,98 @@ tbody tr:hover td {
     background: #fff !important;
     box-shadow: none !important;
     border-radius: 0 !important;
-    padding: 40px 30px !important;
+    padding: 60px 40px !important;
     max-width: none !important;
   }
 
   h1 {
-    font-size: 28px !important;
-    margin-bottom: 30px !important;
+    font-size: 32px !important;
+    margin-bottom: 40px !important;
     text-align: center;
     color: #1a365d !important;
     font-weight: 700 !important;
-    letter-spacing: -0.5px !important;
+    letter-spacing: -0.8px !important;
+    text-transform: uppercase;
+    border-bottom: 3px solid #3182ce;
+    padding-bottom: 20px;
   }
 
-  h1::after {
-    content: '';
+  /* Add trade summary section */
+  .container::before {
+    content: "TRADING PERFORMANCE SUMMARY";
     display: block;
-    width: 60px;
-    height: 3px;
-    background: #3182ce;
-    margin: 15px auto 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 2px solid #e2e8f0;
+    padding: 15px;
+    background: #f8fafc;
   }
 
   .table-container {
     background: #fff !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    border: none !important;
-    margin-bottom: 0 !important;
+    border: 2px solid #2d3748 !important;
+    margin-bottom: 40px !important;
+    overflow: hidden;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    font-size: 12px !important;
+    margin: 0;
+    font-size: 11px !important;
   }
 
   th, td {
-    border: 1px solid #e2e8f0 !important;
-    padding: 14px 10px !important;
+    border: 1px solid #cbd5e0 !important;
+    padding: 12px 8px !important;
     text-align: left !important;
     vertical-align: middle !important;
   }
 
   thead {
-    background: #f7fafc !important;
-    color: #2d3748 !important;
+    background: #2d3748 !important;
+    color: #ffffff !important;
   }
 
   th {
-    font-weight: 600 !important;
-    font-size: 11px !important;
+    font-weight: 700 !important;
+    font-size: 10px !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    color: #4a5568 !important;
-    background: #edf2f7 !important;
+    letter-spacing: 1px !important;
+    color: #ffffff !important;
+    background: #2d3748 !important;
+    padding: 15px 8px !important;
   }
 
   td {
-    font-size: 12px !important;
+    font-size: 11px !important;
     color: #2d3748 !important;
-    line-height: 1.4 !important;
+    line-height: 1.5 !important;
+    font-weight: 500 !important;
   }
 
   tbody tr:nth-child(even) {
-    background: #f8fafc !important;
+    background: #f7fafc !important;
   }
 
   tbody tr:nth-child(odd) {
     background: #ffffff !important;
+  }
+
+  /* Add alternating row styling */
+  tbody tr {
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+
+  tbody tr:last-child {
+    border-bottom: 2px solid #2d3748 !important;
   }
 
   /* Hide action column and elements in PDF */
@@ -473,41 +495,14 @@ tbody tr:hover td {
 
   /* Style result column for PDF */
   .result {
-    padding: 6px 12px !important;
-    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
     font-weight: 600 !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
     display: inline-block !important;
-    min-width: 80px !important;
+    min-width: 70px !important;
     text-align: center !important;
-  }
-
-  /* Profit styling for PDF */
-  .result:contains("Profit") {
-    background: #c6f6d5 !important;
-    color: #22543d !important;
-    border: 1px solid #9ae6b4 !important;
-  }
-
-  /* Loss styling for PDF */
-  .result:contains("Loss") {
-    background: #fed7d7 !important;
-    color: #742a2a !important;
-    border: 1px solid #fc8181 !important;
-  }
-
-  /* Breakeven styling for PDF */
-  .result:contains("Breakeven") {
-    background: #feebc8 !important;
-    color: #7b341e !important;
-    border: 1px solid #f6ad55 !important;
-  }
-
-  /* Pending styling for PDF */
-  .result:contains("Pending") {
-    background: #f7fafc !important;
-    color: #4a5568 !important;
-    border: 1px solid #cbd5e0 !important;
+    border: 1px solid !important;
   }
 
   /* Add page break handling */
@@ -515,14 +510,65 @@ tbody tr:hover td {
     page-break-inside: avoid !important;
   }
 
+  /* Add header and footer information */
+  .container::after {
+    content: "Generated on " attr(data-date) " | Total Trades: " attr(data-total-trades);
+    display: block;
+    font-size: 12px;
+    color: #718096;
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+  }
+
   /* Add footer with page info */
   @page {
-    margin: 0.5in;
+    margin: 0.75in 0.5in;
+    @top-center {
+      content: "ASANDA MKHIZE - FOREX TRADING JOURNAL";
+      font-size: 10px;
+      color: #4a5568;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
     @bottom-center {
-      content: "Page " counter(page) " of " counter(pages);
+      content: "Page " counter(page) " | Generated: " date();
       font-size: 10px;
       color: #718096;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
     }
+    @bottom-right {
+      content: "Confidential Trading Data";
+      font-size: 8px;
+      color: #a0aec0;
+      font-style: italic;
+    }
+  }
+
+  /* Ensure proper column widths */
+  th:nth-child(1), td:nth-child(1) { width: 15%; } /* Currency Pair */
+  th:nth-child(2), td:nth-child(2) { width: 20%; } /* Date & Time */
+  th:nth-child(3), td:nth-child(3) { width: 25%; } /* Reason */
+  th:nth-child(4), td:nth-child(4) { width: 15%; } /* Emotion */
+  th:nth-child(5), td:nth-child(5) { width: 10%; } /* Lot Size */
+  th:nth-child(6), td:nth-child(6) { width: 15%; } /* Result */
+
+  /* Style specific columns */
+  td:nth-child(1) { /* Currency Pair */
+    font-weight: 700 !important;
+    color: #2b6cb0 !important;
+  }
+
+  td:nth-child(2) { /* Date & Time */
+    font-family: 'Courier New', monospace !important;
+    font-size: 10px !important;
+  }
+
+  td:nth-child(5) { /* Lot Size */
+    text-align: center !important;
+    font-weight: 600 !important;
   }
 
 }
