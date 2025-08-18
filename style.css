@@ -380,111 +380,121 @@ tbody tr:hover td {
 /* ========== Print Styles ========== */
 @media print {
   body {
-    background: #fff !important;
-    color: #000;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: 'Times New Roman', serif !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
   }
 
   .container {
-    background: #fff !important;
+    background: white !important;
     box-shadow: none !important;
     border-radius: 0 !important;
-    padding: 60px 40px !important;
+    padding: 40px 30px !important;
     max-width: none !important;
+    margin: 0 !important;
   }
 
   h1 {
-    font-size: 32px !important;
-    margin-bottom: 40px !important;
-    text-align: center;
-    color: #1a365d !important;
+    font-size: 28px !important;
+    margin-bottom: 30px !important;
+    text-align: center !important;
+    color: #1a202c !important;
     font-weight: 700 !important;
-    letter-spacing: -0.8px !important;
-    text-transform: uppercase;
-    border-bottom: 3px solid #3182ce;
-    padding-bottom: 20px;
+    letter-spacing: -0.5px !important;
+    border-bottom: 3px solid #2d3748 !important;
+    padding-bottom: 15px !important;
+    font-family: 'Times New Roman', serif !important;
   }
 
-  /* Add trade summary section */
+  h1::after {
+    display: none !important;
+  }
+
   .container::before {
-    content: "TRADING PERFORMANCE SUMMARY";
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #4a5568;
-    text-align: center;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border: 2px solid #e2e8f0;
-    padding: 15px;
-    background: #f8fafc;
+    content: "PROFESSIONAL TRADING JOURNAL - CONFIDENTIAL";
+    display: block !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #4a5568 !important;
+    text-align: center !important;
+    margin-bottom: 25px !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    border: 1px solid #cbd5e0 !important;
+    padding: 12px !important;
+    background: #f7fafc !important;
+    font-family: 'Times New Roman', serif !important;
   }
 
   .table-container {
-    background: #fff !important;
+    background: white !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    border: 2px solid #2d3748 !important;
-    margin-bottom: 40px !important;
-    overflow: hidden;
+    border: 2px solid #1a202c !important;
+    margin-bottom: 30px !important;
+    overflow: visible !important;
   }
 
   table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0;
-    font-size: 11px !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    font-size: 10px !important;
+    font-family: 'Times New Roman', serif !important;
   }
 
   th, td {
-    border: 1px solid #cbd5e0 !important;
-    padding: 12px 8px !important;
+    border: 1px solid #4a5568 !important;
+    padding: 10px 6px !important;
     text-align: left !important;
     vertical-align: middle !important;
+    word-wrap: break-word !important;
   }
 
   thead {
-    background: #2d3748 !important;
+    background: #1a202c !important;
     color: #ffffff !important;
   }
 
   th {
     font-weight: 700 !important;
-    font-size: 10px !important;
+    font-size: 9px !important;
     text-transform: uppercase !important;
-    letter-spacing: 1px !important;
+    letter-spacing: 0.5px !important;
     color: #ffffff !important;
-    background: #2d3748 !important;
-    padding: 15px 8px !important;
+    background: #1a202c !important;
+    padding: 12px 6px !important;
+    text-align: center !important;
   }
 
   td {
-    font-size: 11px !important;
-    color: #2d3748 !important;
+    font-size: 10px !important;
+    color: #1a202c !important;
     line-height: 1.5 !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
   }
 
   tbody tr:nth-child(even) {
-    background: #f7fafc !important;
+    background: #f8f9fa !important;
   }
 
   tbody tr:nth-child(odd) {
     background: #ffffff !important;
   }
 
-  /* Add alternating row styling */
   tbody tr {
-    border-bottom: 1px solid #e2e8f0 !important;
+    border-bottom: 1px solid #cbd5e0 !important;
+    page-break-inside: avoid !important;
   }
 
   tbody tr:last-child {
-    border-bottom: 2px solid #2d3748 !important;
+    border-bottom: 2px solid #1a202c !important;
   }
 
-  /* Hide action column and elements in PDF */
   .action-column,
   .actions,
   form,
@@ -493,84 +503,109 @@ tbody tr:hover td {
     display: none !important;
   }
 
-  /* Style result column for PDF */
   .result {
-    padding: 4px 8px !important;
-    border-radius: 4px !important;
+    padding: 3px 6px !important;
+    border-radius: 3px !important;
     font-weight: 600 !important;
-    font-size: 10px !important;
+    font-size: 9px !important;
     display: inline-block !important;
-    min-width: 70px !important;
+    min-width: 60px !important;
     text-align: center !important;
     border: 1px solid !important;
+    color: white !important;
   }
 
-  /* Add page break handling */
-  tbody tr {
-    page-break-inside: avoid !important;
+  .result:contains("Profit") {
+    background: #22543d !important;
+    border-color: #22543d !important;
   }
 
-  /* Add header and footer information */
-  .container::after {
-    content: "Generated on " attr(data-date) " | Total Trades: " attr(data-total-trades);
-    display: block;
-    font-size: 12px;
-    color: #718096;
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #e2e8f0;
+  .result:contains("Loss") {
+    background: #742a2a !important;
+    border-color: #742a2a !important;
   }
 
-  /* Add footer with page info */
+  .result:contains("Breakeven") {
+    background: #744210 !important;
+    border-color: #744210 !important;
+  }
+
+  .result:contains("Pending") {
+    background: #4a5568 !important;
+    border-color: #4a5568 !important;
+  }
+
   @page {
-    margin: 0.75in 0.5in;
+    margin: 0.75in 0.5in !important;
+    size: A4 landscape !important;
+    
     @top-center {
-      content: "ASANDA MKHIZE - FOREX TRADING JOURNAL";
-      font-size: 10px;
-      color: #4a5568;
-      font-weight: 600;
-      letter-spacing: 1px;
+      content: "ASANDA MKHIZE - FOREX TRADING JOURNAL" !important;
+      font-size: 10px !important;
+      color: #4a5568 !important;
+      font-weight: 600 !important;
+      letter-spacing: 1px !important;
+      font-family: 'Times New Roman', serif !important;
     }
+    
     @bottom-center {
-      content: "Page " counter(page) " | Generated: " date();
-      font-size: 10px;
-      color: #718096;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 10px;
+      content: "Page " counter(page) " of " counter(pages) !important;
+      font-size: 9px !important;
+      color: #718096 !important;
+      font-family: 'Times New Roman', serif !important;
     }
+    
     @bottom-right {
-      content: "Confidential Trading Data";
-      font-size: 8px;
-      color: #a0aec0;
-      font-style: italic;
+      content: "Generated: " date() !important;
+      font-size: 8px !important;
+      color: #a0aec0 !important;
+      font-style: italic !important;
+      font-family: 'Times New Roman', serif !important;
     }
   }
 
-  /* Ensure proper column widths */
-  th:nth-child(1), td:nth-child(1) { width: 15%; } /* Currency Pair */
-  th:nth-child(2), td:nth-child(2) { width: 20%; } /* Date & Time */
-  th:nth-child(3), td:nth-child(3) { width: 25%; } /* Reason */
-  th:nth-child(4), td:nth-child(4) { width: 15%; } /* Emotion */
-  th:nth-child(5), td:nth-child(5) { width: 10%; } /* Lot Size */
-  th:nth-child(6), td:nth-child(6) { width: 15%; } /* Result */
+  th:nth-child(1), td:nth-child(1) { width: 12% !important; }
+  th:nth-child(2), td:nth-child(2) { width: 18% !important; }
+  th:nth-child(3), td:nth-child(3) { width: 30% !important; }
+  th:nth-child(4), td:nth-child(4) { width: 15% !important; }
+  th:nth-child(5), td:nth-child(5) { width: 10% !important; }
+  th:nth-child(6), td:nth-child(6) { width: 15% !important; }
 
-  /* Style specific columns */
-  td:nth-child(1) { /* Currency Pair */
+  td:nth-child(1) {
     font-weight: 700 !important;
-    color: #2b6cb0 !important;
+    color: #1a365d !important;
+    text-transform: uppercase !important;
   }
 
-  td:nth-child(2) { /* Date & Time */
+  td:nth-child(2) {
     font-family: 'Courier New', monospace !important;
-    font-size: 10px !important;
+    font-size: 9px !important;
   }
 
-  td:nth-child(5) { /* Lot Size */
+  td:nth-child(4) {
+    text-align: center !important;
+  }
+
+  td:nth-child(5) {
     text-align: center !important;
     font-weight: 600 !important;
   }
 
+  td:nth-child(6) {
+    text-align: center !important;
+  }
+
+  .container::after {
+    content: "This document contains confidential trading information. Generated on " attr(data-date) " | Total Trades: " attr(data-total-trades) !important;
+    display: block !important;
+    font-size: 10px !important;
+    color: #718096 !important;
+    text-align: center !important;
+    margin-top: 30px !important;
+    padding-top: 15px !important;
+    border-top: 1px solid #cbd5e0 !important;
+    font-family: 'Times New Roman', serif !important;
+  }
 }
 
 /* ========== Custom Scrollbar ========== */
